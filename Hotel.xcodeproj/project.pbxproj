@@ -10,11 +10,13 @@
 		51DB34E22B4ADB5D0032899B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DB34E12B4ADB5D0032899B /* AppDelegate.swift */; };
 		51DB34E42B4ADB5D0032899B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DB34E32B4ADB5D0032899B /* SceneDelegate.swift */; };
 		51DB34E92B4ADB5D0032899B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51DB34E72B4ADB5D0032899B /* Main.storyboard */; };
-		51DB34EB2B4ADB5E0032899B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51DB34EA2B4ADB5E0032899B /* Assets.xcassets */; };
 		51DB34EE2B4ADB5E0032899B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51DB34EC2B4ADB5E0032899B /* LaunchScreen.storyboard */; };
 		51DB34F62B4ADDB10032899B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DB34F52B4ADDB10032899B /* MainViewController.swift */; };
 		51DB34FA2B4ADF300032899B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 51DB34F92B4ADF300032899B /* SnapKit */; };
-		51DB34FC2B4ADF300032899B /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 51DB34FB2B4ADF300032899B /* SnapKit-Dynamic */; };
+		51DB34FF2B4AE0D30032899B /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DB34FE2B4AE0D30032899B /* AppColor.swift */; };
+		51DB35012B4AE0DE0032899B /* AppImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DB35002B4AE0DE0032899B /* AppImage.swift */; };
+		51DB35032B4B066A0032899B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51DB35022B4B066A0032899B /* Colors.xcassets */; };
+		51DB35052B4B06760032899B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51DB35042B4B06760032899B /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,10 +24,13 @@
 		51DB34E12B4ADB5D0032899B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		51DB34E32B4ADB5D0032899B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		51DB34E82B4ADB5D0032899B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		51DB34EA2B4ADB5E0032899B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		51DB34ED2B4ADB5E0032899B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		51DB34EF2B4ADB5E0032899B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		51DB34F52B4ADDB10032899B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		51DB34FE2B4AE0D30032899B /* AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColor.swift; sourceTree = "<group>"; };
+		51DB35002B4AE0DE0032899B /* AppImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppImage.swift; sourceTree = "<group>"; };
+		51DB35022B4B066A0032899B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		51DB35042B4B06760032899B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,7 +39,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				51DB34FA2B4ADF300032899B /* SnapKit in Frameworks */,
-				51DB34FC2B4ADF300032899B /* SnapKit-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,15 +64,26 @@
 		51DB34E02B4ADB5D0032899B /* Hotel */ = {
 			isa = PBXGroup;
 			children = (
+				51DB34FD2B4AE0BD0032899B /* Helpers */,
 				51DB34F52B4ADDB10032899B /* MainViewController.swift */,
 				51DB34E12B4ADB5D0032899B /* AppDelegate.swift */,
 				51DB34E32B4ADB5D0032899B /* SceneDelegate.swift */,
 				51DB34E72B4ADB5D0032899B /* Main.storyboard */,
-				51DB34EA2B4ADB5E0032899B /* Assets.xcassets */,
 				51DB34EC2B4ADB5E0032899B /* LaunchScreen.storyboard */,
 				51DB34EF2B4ADB5E0032899B /* Info.plist */,
 			);
 			path = Hotel;
+			sourceTree = "<group>";
+		};
+		51DB34FD2B4AE0BD0032899B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				51DB34FE2B4AE0D30032899B /* AppColor.swift */,
+				51DB35002B4AE0DE0032899B /* AppImage.swift */,
+				51DB35022B4B066A0032899B /* Colors.xcassets */,
+				51DB35042B4B06760032899B /* Images.xcassets */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -89,7 +104,6 @@
 			name = Hotel;
 			packageProductDependencies = (
 				51DB34F92B4ADF300032899B /* SnapKit */,
-				51DB34FB2B4ADF300032899B /* SnapKit-Dynamic */,
 			);
 			productName = Hotel;
 			productReference = 51DB34DE2B4ADB5D0032899B /* Hotel.app */;
@@ -136,8 +150,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51DB35032B4B066A0032899B /* Colors.xcassets in Resources */,
+				51DB35052B4B06760032899B /* Images.xcassets in Resources */,
 				51DB34EE2B4ADB5E0032899B /* LaunchScreen.storyboard in Resources */,
-				51DB34EB2B4ADB5E0032899B /* Assets.xcassets in Resources */,
 				51DB34E92B4ADB5D0032899B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -150,8 +165,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				51DB34F62B4ADDB10032899B /* MainViewController.swift in Sources */,
+				51DB34FF2B4AE0D30032899B /* AppColor.swift in Sources */,
 				51DB34E22B4ADB5D0032899B /* AppDelegate.swift in Sources */,
 				51DB34E42B4ADB5D0032899B /* SceneDelegate.swift in Sources */,
+				51DB35012B4AE0DE0032899B /* AppImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,12 +328,13 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.Hotel;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.Hotell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -339,12 +357,13 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.Hotel;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.Hotell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -391,11 +410,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 51DB34F82B4ADF300032899B /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		51DB34FB2B4ADF300032899B /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 51DB34F82B4ADF300032899B /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
