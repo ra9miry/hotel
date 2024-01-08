@@ -6,9 +6,12 @@
 //
 
 import Foundation
+import UIKit
 
 struct Option {
+    let mainIcon: UIImage?
     let title: String
     let subtitle: String
-    let iconName: String 
+    let need: String
+    let iconName: String
 }

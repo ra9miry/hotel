@@ -33,4 +33,11 @@ enum AppImage: String, AppImageProtocol {
     case main
     case oc
     case back
+    case first
+    case second
+    case third
+    
+    var uiImage: UIImage? {
+        return UIImage(named: self.rawValue)
+    }
 }

@@ -14,9 +14,9 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
     
     private var tableView: UITableView!
     private let options: [Option] = [
-        Option(title: "Удобства", subtitle: "Самое необходимое", iconName: "back"),
-        Option(title: "Что включено", subtitle: "Самое необходимое", iconName: "back"),
-        Option(title: "Что не включено", subtitle: "Самое необходимое", iconName: "back")
+        Option(mainIcon: AppImage.first.uiImage, title: "Удобства", subtitle: "Самое необходимое",need: "Самое необходимое" ,iconName: "back"),
+        Option(mainIcon: AppImage.second.uiImage, title: "Что включено", subtitle: "Самое необходимое",need: "Самое необходимое" ,iconName: "back"),
+        Option(mainIcon: AppImage.third.uiImage, title: "Что не включено", subtitle: "Самое необходимое", need: "Самое необходимое" ,iconName: "back")
     ]
     
     private lazy var scrollView: UIScrollView = {
@@ -186,7 +186,7 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
     
     private func setupTableView() {
         tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "CustomCell")
         tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: CGFloat.leastNormalMagnitude))
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: CGFloat.leastNormalMagnitude))
         tableView.dataSource = self
@@ -201,13 +201,9 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as! CustomTableViewCell
         let option = options[indexPath.row]
-        
-        cell.textLabel?.text = option.title
-        cell.detailTextLabel?.text = option.subtitle
-        cell.imageView?.image = UIImage(named: option.iconName)
-        cell.accessoryType = .disclosureIndicator
+        cell.configureWith(option: option)
         return cell
     }
     
