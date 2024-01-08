@@ -14,36 +14,46 @@ class CustomTableViewCell: UITableViewCell {
     let checkmarkImageView = UIImageView()
     let needLabel = UILabel()
     
-    // Инициализатор для создания элементов интерфейса ячейки
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        // Добавление и настройка основной иконки
+        // Add mainImageView to contentView
         contentView.addSubview(mainImageView)
         mainImageView.contentMode = .scaleAspectFit
+        
+        // Add checkmarkImageView to contentView
+        contentView.addSubview(checkmarkImageView)
+        checkmarkImageView.contentMode = .scaleAspectFit
+        
+        // Add needLabel to contentView
+        contentView.addSubview(needLabel)
+        needLabel.textColor = .gray
+        
+        // Set up constraints for mainImageView
         mainImageView.snp.makeConstraints { make in
             make.left.equalTo(contentView.snp.left).offset(16)
             make.centerY.equalTo(contentView.snp.centerY)
-            make.width.height.equalTo(24) // Размеры иконки
+            make.width.height.equalTo(24)
         }
         
-        // Добавление и настройка checkmark иконки
-        contentView.addSubview(checkmarkImageView)
-        checkmarkImageView.contentMode = .scaleAspectFit
-        checkmarkImageView.snp.makeConstraints { make in
-            make.right.equalTo(contentView.snp.right).offset(-16)
-            make.centerY.equalTo(contentView.snp.centerY)
-            make.width.height.equalTo(24) // Размеры иконки
+        // Set up constraints for textLabel
+        textLabel?.snp.makeConstraints { make in
+            make.left.equalTo(mainImageView.snp.right).offset(16)
+            make.top.equalToSuperview().offset(8)
         }
         
-        // Настройка вспомогательной текстовой метки
-        guard let textLabel = textLabel else { return }
-        contentView.addSubview(needLabel)
-        needLabel.textColor = .gray
+        // Set up constraints for needLabel
         needLabel.snp.makeConstraints { make in
             make.left.equalTo(mainImageView.snp.right).offset(16)
+            make.top.equalTo(textLabel!.snp.bottom).offset(4)
             make.right.lessThanOrEqualTo(checkmarkImageView.snp.left).offset(-16)
-            make.top.equalTo(textLabel.snp.bottom).offset(4)
+        }
+        
+        // Set up constraints for checkmarkImageView
+        checkmarkImageView.snp.makeConstraints { make in
+            make.right.equalTo(contentView.snp.right).offset(-16)
+            make.centerY.equalTo(mainImageView.snp.centerY)
+            make.width.height.equalTo(24)
         }
     }
     
@@ -51,12 +61,10 @@ class CustomTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // Метод для конфигурации ячейки данными
     func configureWith(option: Option) {
         mainImageView.image = option.mainIcon
         textLabel?.text = option.title
         needLabel.text = option.subtitle
         checkmarkImageView.image = UIImage(named: option.iconName)
-        // Здесь вы можете добавить логику для отображения или скрытия checkmarkImageView в зависимости от данных
     }
 }
