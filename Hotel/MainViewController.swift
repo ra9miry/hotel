@@ -8,11 +8,16 @@
 import UIKit
 import SnapKit
 
-final class MainViewController: UIViewController {
+final class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     // MARK: - UI
     
     private var tableView: UITableView!
+    private let options: [Option] = [
+        Option(title: "Удобства", subtitle: "Самое необходимое", iconName: "back"),
+        Option(title: "Что включено", subtitle: "Самое необходимое", iconName: "back"),
+        Option(title: "Что не включено", subtitle: "Самое необходимое", iconName: "back")
+    ]
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -172,11 +177,43 @@ final class MainViewController: UIViewController {
         view.backgroundColor = AppColor.background.uiColor
         navigationController?.setNavigationBarHidden(true, animated: false)
         
+        setupTableView()
         setupViews()
         setupConstraints()
     }
     
     // MARK: - Table View
+    
+    private func setupTableView() {
+        tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: CGFloat.leastNormalMagnitude))
+        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: CGFloat.leastNormalMagnitude))
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.isScrollEnabled = false
+    }
+    
+    // MARK: - UITableViewDataSource
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return options.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let option = options[indexPath.row]
+        
+        cell.textLabel?.text = option.title
+        cell.detailTextLabel?.text = option.subtitle
+        cell.imageView?.image = UIImage(named: option.iconName)
+        cell.accessoryType = .disclosureIndicator
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
     
     // MARK: - Setup Views
     
@@ -198,6 +235,7 @@ final class MainViewController: UIViewController {
         contentView.addSubview(distanceToAirportLabel)
         contentView.addSubview(distanceToBeachLabel)
         contentView.addSubview(textLabel)
+        contentView.addSubview(tableView)
     }
     
     // MARK: - Setup Constraints
@@ -259,7 +297,7 @@ final class MainViewController: UIViewController {
         secondView.snp.makeConstraints() { make in
             make.top.equalTo(firstView.snp.bottom).offset(8)
             make.leading.trailing.equalToSuperview().offset(0)
-            make.height.equalTo(430)
+            make.height.equalTo(530)
         }
         
         aboutHotelLabel.snp.makeConstraints() { make in
@@ -291,6 +329,14 @@ final class MainViewController: UIViewController {
             make.top.equalTo(distanceToBeachLabel.snp.bottom).offset(12)
             make.leading.equalTo(secondView.snp.leading).offset(16)
             make.trailing.equalTo(secondView.snp.trailing).offset(-16)
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(textLabel.snp.bottom).offset(16)
+            make.leading.equalTo(secondView.snp.leading).offset(16)
+            make.trailing.equalTo(secondView.snp.trailing).offset(-16)
+            make.bottom.equalToSuperview()
+            make.height.equalTo(180)
         }
     }
 }

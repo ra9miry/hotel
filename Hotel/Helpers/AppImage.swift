@@ -32,4 +32,5 @@ extension AppImageProtocol {
 enum AppImage: String, AppImageProtocol {
     case main
     case oc
+    case back
 }
