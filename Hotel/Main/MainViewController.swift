@@ -170,6 +170,24 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
         return label
     }()
     
+    private lazy var thirdView: UIView = {
+        let view = UIView()
+        view.backgroundColor = AppColor.white.uiColor
+        view.layer.cornerRadius = 12
+        return view
+    }()
+    
+    private lazy var choiceButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Continue", for: .normal)
+        button.setTitleColor(AppColor.white.uiColor, for: .normal)
+        button.layer.cornerRadius = 15
+        button.backgroundColor = AppColor.blue.uiColor
+        button.setTitle("К выбору номера", for: .normal)
+        button.addTarget(self, action: #selector(handleChoiceButtonPress), for: .touchUpInside)
+        return button
+    }()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -182,6 +200,13 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
         setupConstraints()
     }
     
+    // MARK: - Action
+    
+    @objc private func handleChoiceButtonPress() {
+        let controller = hotelNumberViewController()
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
     // MARK: - Table View
     
     private func setupTableView() {
@@ -192,6 +217,7 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
         tableView.dataSource = self
         tableView.delegate = self
         tableView.isScrollEnabled = false
+        tableView.layer.cornerRadius = 12
     }
     
     // MARK: - UITableViewDataSource
@@ -204,6 +230,7 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as! CustomTableViewCell
         let option = options[indexPath.row]
         cell.configureWith(option: option)
+        cell.backgroundColor = AppColor.background.uiColor
         return cell
     }
     
@@ -232,6 +259,8 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
         contentView.addSubview(distanceToBeachLabel)
         contentView.addSubview(textLabel)
         contentView.addSubview(tableView)
+        contentView.addSubview(thirdView)
+        contentView.addSubview(choiceButton)
     }
     
     // MARK: - Setup Constraints
@@ -293,7 +322,7 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
         secondView.snp.makeConstraints() { make in
             make.top.equalTo(firstView.snp.bottom).offset(8)
             make.leading.trailing.equalToSuperview().offset(0)
-            make.height.equalTo(530)
+            make.height.equalTo(430)
         }
         
         aboutHotelLabel.snp.makeConstraints() { make in
@@ -333,6 +362,19 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
             make.trailing.equalTo(secondView.snp.trailing).offset(-16)
             make.bottom.equalToSuperview()
             make.height.equalTo(180)
+        }
+        
+        thirdView.snp.makeConstraints() { make in
+            make.top.equalTo(secondView.snp.bottom).offset(16)
+            make.leading.trailing.equalToSuperview().offset(0)
+            make.height.equalTo(100)
+        }
+        
+        choiceButton.snp.makeConstraints() { make in
+            make.top.equalTo(thirdView.snp.top).offset(12)
+            make.leading.equalTo(thirdView.snp.leading).offset(16)
+            make.trailing.equalTo(thirdView.snp.trailing).offset(-16)
+            make.height.equalTo(48)
         }
     }
 }

@@ -17,39 +17,32 @@ class CustomTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        // Add mainImageView to contentView
         contentView.addSubview(mainImageView)
         mainImageView.contentMode = .scaleAspectFit
         
-        // Add checkmarkImageView to contentView
         contentView.addSubview(checkmarkImageView)
         checkmarkImageView.contentMode = .scaleAspectFit
         
-        // Add needLabel to contentView
         contentView.addSubview(needLabel)
         needLabel.textColor = .gray
         
-        // Set up constraints for mainImageView
         mainImageView.snp.makeConstraints { make in
             make.left.equalTo(contentView.snp.left).offset(16)
             make.centerY.equalTo(contentView.snp.centerY)
             make.width.height.equalTo(24)
         }
         
-        // Set up constraints for textLabel
         textLabel?.snp.makeConstraints { make in
             make.left.equalTo(mainImageView.snp.right).offset(16)
             make.top.equalToSuperview().offset(8)
         }
         
-        // Set up constraints for needLabel
         needLabel.snp.makeConstraints { make in
             make.left.equalTo(mainImageView.snp.right).offset(16)
             make.top.equalTo(textLabel!.snp.bottom).offset(4)
             make.right.lessThanOrEqualTo(checkmarkImageView.snp.left).offset(-16)
         }
         
-        // Set up constraints for checkmarkImageView
         checkmarkImageView.snp.makeConstraints { make in
             make.right.equalTo(contentView.snp.right).offset(-16)
             make.centerY.equalTo(mainImageView.snp.centerY)

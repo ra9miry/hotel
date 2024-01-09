@@ -19,6 +19,7 @@
 		51DB35052B4B06760032899B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51DB35042B4B06760032899B /* Images.xcassets */; };
 		51DB350E2B4C6BFD0032899B /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DB350D2B4C6BFD0032899B /* Option.swift */; };
 		51DB35122B4C7F9C0032899B /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DB35112B4C7F9C0032899B /* CustomTableViewCell.swift */; };
+		51DB35162B4D950D0032899B /* hotelNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DB35152B4D950D0032899B /* hotelNumberViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		51DB35042B4B06760032899B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		51DB350D2B4C6BFD0032899B /* Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
 		51DB35112B4C7F9C0032899B /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		51DB35152B4D950D0032899B /* hotelNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hotelNumberViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,15 +70,14 @@
 		51DB34E02B4ADB5D0032899B /* Hotel */ = {
 			isa = PBXGroup;
 			children = (
+				51DB35142B4D94BD0032899B /* Main */,
+				51DB35132B4D94B10032899B /* Hotel Number */,
 				51DB34FD2B4AE0BD0032899B /* Helpers */,
-				51DB34F52B4ADDB10032899B /* MainViewController.swift */,
-				51DB35112B4C7F9C0032899B /* CustomTableViewCell.swift */,
 				51DB34E12B4ADB5D0032899B /* AppDelegate.swift */,
 				51DB34E32B4ADB5D0032899B /* SceneDelegate.swift */,
 				51DB34E72B4ADB5D0032899B /* Main.storyboard */,
 				51DB34EC2B4ADB5E0032899B /* LaunchScreen.storyboard */,
 				51DB34EF2B4ADB5E0032899B /* Info.plist */,
-				51DB350D2B4C6BFD0032899B /* Option.swift */,
 			);
 			path = Hotel;
 			sourceTree = "<group>";
@@ -90,6 +91,24 @@
 				51DB35042B4B06760032899B /* Images.xcassets */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		51DB35132B4D94B10032899B /* Hotel Number */ = {
+			isa = PBXGroup;
+			children = (
+				51DB35152B4D950D0032899B /* hotelNumberViewController.swift */,
+			);
+			path = "Hotel Number";
+			sourceTree = "<group>";
+		};
+		51DB35142B4D94BD0032899B /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				51DB34F52B4ADDB10032899B /* MainViewController.swift */,
+				51DB35112B4C7F9C0032899B /* CustomTableViewCell.swift */,
+				51DB350D2B4C6BFD0032899B /* Option.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,6 +195,7 @@
 				51DB35122B4C7F9C0032899B /* CustomTableViewCell.swift in Sources */,
 				51DB34E42B4ADB5D0032899B /* SceneDelegate.swift in Sources */,
 				51DB350E2B4C6BFD0032899B /* Option.swift in Sources */,
+				51DB35162B4D950D0032899B /* hotelNumberViewController.swift in Sources */,
 				51DB35012B4AE0DE0032899B /* AppImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
