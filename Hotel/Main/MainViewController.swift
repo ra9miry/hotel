@@ -63,11 +63,12 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.layer.cornerRadius = 15
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isPagingEnabled = true
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "ImageCell")
+        collectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)
         return collectionView
     }()
     
@@ -216,6 +217,7 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
         navigationController?.setNavigationBarHidden(true, animated: false)
         
         setupTableView()
+        setupCollectionView()
         setupViews()
         setupConstraints()
     }
@@ -268,28 +270,6 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
     @objc func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imageUrls.count
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath)
-        
-        let imageView = UIImageView(frame: cell.bounds)
-        cell.contentView.addSubview(imageView)
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-
-        if let imageUrl = URL(string: imageUrls[indexPath.row]) {
-            URLSession.shared.dataTask(with: imageUrl) { data, response, error in
-                if let data = data, error == nil {
-                    DispatchQueue.main.async {
-                        imageView.image = UIImage(data: data)
-                    }
-                }
-            }.resume()
-        }
-
-        return cell
-    }
-
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
@@ -469,5 +449,27 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
             make.trailing.equalTo(thirdView.snp.trailing).offset(-16)
             make.height.equalTo(48)
         }
+    }
+}
+
+
+extension MainViewController {
+    func setupCollectionView() {
+        imagesCollectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)
+        if let layout = imagesCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.itemSize = CGSize(width: 343, height: 257)
+            layout.minimumLineSpacing = 12
+            layout.minimumInteritemSpacing = 0
+        }
+        imagesCollectionView.reloadData()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier, for: indexPath) as? CustomCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        let urlString = imageUrls[indexPath.row]
+        cell.configure(with: urlString)
+        return cell
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		514D93B52B5002A800F0CFEA /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514D93B42B5002A800F0CFEA /* CustomCollectionViewCell.swift */; };
 		51DB34E22B4ADB5D0032899B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DB34E12B4ADB5D0032899B /* AppDelegate.swift */; };
 		51DB34E42B4ADB5D0032899B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DB34E32B4ADB5D0032899B /* SceneDelegate.swift */; };
 		51DB34E92B4ADB5D0032899B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51DB34E72B4ADB5D0032899B /* Main.storyboard */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		514D93B42B5002A800F0CFEA /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		51DB34DE2B4ADB5D0032899B /* Hotel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hotel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51DB34E12B4ADB5D0032899B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		51DB34E32B4ADB5D0032899B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				51DB34F52B4ADDB10032899B /* MainViewController.swift */,
+				514D93B42B5002A800F0CFEA /* CustomCollectionViewCell.swift */,
 				51DB35112B4C7F9C0032899B /* CustomTableViewCell.swift */,
 				51DB350D2B4C6BFD0032899B /* Option.swift */,
 			);
@@ -190,6 +193,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				51DB34F62B4ADDB10032899B /* MainViewController.swift in Sources */,
+				514D93B52B5002A800F0CFEA /* CustomCollectionViewCell.swift in Sources */,
 				51DB34FF2B4AE0D30032899B /* AppColor.swift in Sources */,
 				51DB34E22B4ADB5D0032899B /* AppDelegate.swift in Sources */,
 				51DB35122B4C7F9C0032899B /* CustomTableViewCell.swift in Sources */,
