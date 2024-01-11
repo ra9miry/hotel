@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+final class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
 
     // MARK: - UI
     
@@ -17,6 +17,12 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
         Option(mainIcon: AppImage.first.uiImage, title: "Удобства", subtitle: "Самое необходимое",need: "Самое необходимое" ,iconName: "back"),
         Option(mainIcon: AppImage.second.uiImage, title: "Что включено", subtitle: "Самое необходимое",need: "Самое необходимое" ,iconName: "back"),
         Option(mainIcon: AppImage.third.uiImage, title: "Что не включено", subtitle: "Самое необходимое", need: "Самое необходимое" ,iconName: "back")
+    ]
+    
+    private var imageUrls = [
+        "https://www.atorus.ru/sites/default/files/upload/image/News/56149/Club_Privé_by_Belek_Club_House.jpg",
+        "https://deluxe.voyage/useruploads/articles/The_Makadi_Spa_Hotel_02.jpg",
+        "https://deluxe.voyage/useruploads/articles/article_1eb0a64d00.jpg"
     ]
     
     private lazy var scrollView: UIScrollView = {
@@ -53,11 +59,25 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
         return label
     }()
     
-    private lazy var mainImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = AppImage.main.uiImage
-        imageView.contentMode = .scaleAspectFill
-        return imageView
+    private lazy var imagesCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.isPagingEnabled = true
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "ImageCell")
+        return collectionView
+    }()
+    
+    private lazy var pageControl: UIPageControl = {
+        let pageControl = UIPageControl()
+        pageControl.numberOfPages = imageUrls.count
+        pageControl.currentPageIndicatorTintColor = .blue
+        pageControl.pageIndicatorTintColor = .gray
+        pageControl.addTarget(self, action: #selector(pageControlChanged(_:)), for: .valueChanged)
+        return pageControl
     }()
     
     private lazy var gradeImage: UIImageView = {
@@ -207,6 +227,11 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
+    @objc private func pageControlChanged(_ sender: UIPageControl) {
+        let indexPath = IndexPath(item: sender.currentPage, section: 0)
+        imagesCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    }
+    
     // MARK: - Table View
     
     private func setupTableView() {
@@ -238,6 +263,66 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
         return 60
     }
     
+    // MARK: - Collection View
+    
+    @objc func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return imageUrls.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath)
+        
+        let imageView = UIImageView(frame: cell.bounds)
+        cell.contentView.addSubview(imageView)
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+
+        if let imageUrl = URL(string: imageUrls[indexPath.row]) {
+            URLSession.shared.dataTask(with: imageUrl) { data, response, error in
+                if let data = data, error == nil {
+                    DispatchQueue.main.async {
+                        imageView.image = UIImage(data: data)
+                    }
+                }
+            }.resume()
+        }
+
+        return cell
+    }
+
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let pageWidth = Float(scrollView.bounds.width)
+        let targetXContentOffset = Float(targetContentOffset.pointee.x)
+        let contentWidth = Float(scrollView.contentSize.width)
+        var newPage = Float(pageControl.currentPage)
+
+        if velocity.x == 0 {
+            newPage = floor((targetXContentOffset - pageWidth / 2) / pageWidth) + 1.0
+        } else {
+            newPage = velocity.x > 0 ? newPage + 1.0 : newPage - 1.0
+        }
+
+        if newPage < 0 {
+            newPage = 0
+        }
+        if (newPage > contentWidth / pageWidth) {
+            newPage = ceil(contentWidth / pageWidth) - 1.0
+        }
+
+        pageControl.currentPage = Int(newPage)
+        let point = CGPoint(x: CGFloat(newPage * pageWidth), y: targetContentOffset.pointee.y)
+        targetContentOffset.pointee = point
+    }
+    
     // MARK: - Setup Views
     
     private func setupViews() {
@@ -246,7 +331,8 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
         contentView.addSubview(firstView)
         contentView.addSubview(secondView)
         contentView.addSubview(mainLabel)
-        contentView.addSubview(mainImage)
+        contentView.addSubview(imagesCollectionView)
+        contentView.addSubview(pageControl)
         contentView.addSubview(gradeImage)
         contentView.addSubview(nameLabel)
         contentView.addSubview(locationLabel)
@@ -289,14 +375,20 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
             make.centerX.equalTo(firstView.snp.centerX)
         }
         
-        mainImage.snp.makeConstraints() { make in
+        imagesCollectionView.snp.makeConstraints() { make in
             make.top.equalTo(mainLabel.snp.bottom).offset(32)
             make.leading.equalTo(firstView.snp.leading).offset(16)
             make.trailing.equalTo(firstView.snp.trailing).offset(-16)
+            make.height.equalTo(250)
+        }
+        
+        pageControl.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(imagesCollectionView.snp.bottom).offset(-10)
         }
         
         gradeImage.snp.makeConstraints() { make in
-            make.top.equalTo(mainImage.snp.bottom).offset(32)
+            make.top.equalTo(imagesCollectionView.snp.bottom).offset(32)
             make.leading.equalTo(firstView.snp.leading).offset(16)
         }
         
