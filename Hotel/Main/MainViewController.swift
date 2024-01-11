@@ -275,6 +275,7 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
             make.edges.equalToSuperview()
             make.width.equalToSuperview()
             make.height.greaterThanOrEqualToSuperview()
+            make.bottom.equalTo(choiceButton.snp.bottom).offset(20)
         }
         
         firstView.snp.makeConstraints() { make in
@@ -360,14 +361,14 @@ final class MainViewController: UIViewController, UITableViewDataSource, UITable
             make.top.equalTo(textLabel.snp.bottom).offset(16)
             make.leading.equalTo(secondView.snp.leading).offset(16)
             make.trailing.equalTo(secondView.snp.trailing).offset(-16)
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(thirdView.snp.top).offset(-16)
             make.height.equalTo(180)
         }
         
         thirdView.snp.makeConstraints() { make in
             make.top.equalTo(secondView.snp.bottom).offset(16)
             make.leading.trailing.equalToSuperview().offset(0)
-            make.height.equalTo(100)
+            make.height.equalTo(120)
         }
         
         choiceButton.snp.makeConstraints() { make in
